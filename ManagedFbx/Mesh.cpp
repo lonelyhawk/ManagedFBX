@@ -11,9 +11,12 @@ Mesh::Mesh(FbxMesh *nativeMesh)
 
 Mesh ^Mesh::Triangulate()
 {
-	auto mesh = gcnew Mesh(Manager::GetGeomConverter()->TriangulateMesh(m_nativeMesh));
+	/*auto mesh = gcnew Mesh(Manager::GetGeomConverter()->TriangulateMesh(m_nativeMesh));
 	mesh->UVLayer = UVLayer;
-	return mesh;
+	return mesh;*/
+	FbxNodeAttribute *attribute = Manager::GetGeomConverter()->Triangulate(m_nativeMesh, false);
+	FbxMesh * mesh =(FbxMesh*) attribute;//FbxMesh::Create(attribute, m_nativeMesh->GetName());
+	return gcnew Mesh(mesh);
 }
 
 bool Mesh::Triangulated::get()
@@ -54,6 +57,11 @@ array<Vector3> ^Mesh::Vertices::get()
 	}
 
 	return list;
+}
+
+bool Mesh::Valid::get()
+{
+	return m_nativeMesh != nullptr;
 }
 
 array<Vector3> ^Mesh::Normals::get()
@@ -126,4 +134,16 @@ array<Colour> ^Mesh::VertexColours::get()
 		list[i] = Colour(colours->GetDirectArray().GetAt(i));
 
 	return list;
+}
+
+int Mesh::NormalMappingMode::get(){
+	return 0;
+}
+
+void ManagedFbx::Mesh::Test(){
+	FbxVector4* controlpoints = m_nativeMesh->GetControlPoints();
+	while (controlpoints!=nullptr)
+	{
+
+	}
 }

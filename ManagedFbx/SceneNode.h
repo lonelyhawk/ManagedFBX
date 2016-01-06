@@ -54,10 +54,25 @@ namespace ManagedFbx
 		/// </summary>
 		property_r(ManagedFbx::Light^, Light);
 
+		property_r(array<double>^, Transform);
+
+		property_r(Vector3, GeometricTranslate);
+
+		property_r(Vector3, GeometricRotation);
+
+		property_r(Vector3, GeometricScale);
+
 		/// <summary>
 		/// Adds an existing node as a child of this node.
 		/// </summary>
 		void AddChild(SceneNode ^node);
+
+		/// <sumary>
+		/// 
+		Vector3 MultT(Vector3 vector);
+		List<Vector3>^ MultT(List<Vector3>^ vectorList);
+
+		List<SceneNode^>^ FindAllHierarchyChildren();
 
 	internal:
 		SceneNode(FbxNode *node);
@@ -66,5 +81,6 @@ namespace ManagedFbx
 	private:
 		List<SceneNode^> ^m_children;
 		List<NodeAttribute^> ^m_attributes;
+		void SceneNode::FindChildNodes(SceneNode^ node, List<SceneNode^>^ nodeList);
 	};
 }

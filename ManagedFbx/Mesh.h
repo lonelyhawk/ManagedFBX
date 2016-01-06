@@ -14,12 +14,15 @@ namespace ManagedFbx
 		property_r(array<Colour>^, VertexColours);
 		property_r(array<int>^, MaterialIDs);
 		property_r(bool, Triangulated);
+		property_r(bool, Valid);
+		property_r(int, NormalMappingMode);
 		property int UVLayer;
 
 		Mesh ^Triangulate();
 
 		int GetUVIndex(int polygon, int index);
 		int GetMaterialId(int polygon);
+		void Test();
 		Vector3 GetVertexNormal(int polygon, int index);
 
 	internal:

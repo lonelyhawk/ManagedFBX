@@ -15,12 +15,12 @@ Scene ^Scene::Import(string ^filename)
 	auto importer = Manager::GetImporter();
 
 	if(!importer->Initialize(StringHelper::ToNative(filename)))
-		throw gcnew FbxException("Failed to initialise the FBX importer: {0}", gcnew string(importer->GetLastErrorString()));
+		throw gcnew FbxException("Failed to initialise the FBX importer: {0}", gcnew string("error"));
 
 	auto scene = gcnew Scene("");
 
 	if(!importer->Import(scene->m_nativeScene))
-		throw gcnew FbxException("Failed to import the scene: {0}", gcnew string(importer->GetLastErrorString()));
+		throw gcnew FbxException("Failed to import the scene: {0}", gcnew string("error"));
 
 	// Needs refreshing
 	scene->m_rootNode = gcnew SceneNode(scene->m_nativeScene->GetRootNode());
@@ -28,15 +28,16 @@ Scene ^Scene::Import(string ^filename)
 	return scene;
 }
 
+
 void Scene::Save(string ^filename)
 {
 	auto exporter = Manager::GetExporter();
 
 	if(!exporter->Initialize(StringHelper::ToNative(filename)))
-		throw gcnew FbxException("Failed to initialise the FBX exporter: {0}", gcnew string(exporter->GetLastErrorString()));
+		throw gcnew FbxException("Failed to initialise the FBX exporter: {0}", gcnew string("error"));
 
 	if(!exporter->Export(m_nativeScene))
-		throw gcnew FbxException("Failed to export the scene: {0}", gcnew string(exporter->GetLastErrorString()));
+		throw gcnew FbxException("Failed to export the scene: {0}", gcnew string("error"));
 }
 
 void Scene::Name::set(string ^value)
@@ -123,7 +124,7 @@ void Scene::BakeTransform(SceneNode ^node)
 		native->GetGeometricRotation(FbxNode::eSourcePivot),
 		native->GetGeometricScaling(FbxNode::eSourcePivot));
 
-	auto total = m_nativeScene->GetEvaluator()->GetNodeGlobalTransform(native) * geometry;
+	auto total = m_nativeScene->GetAnimationEvaluator()->GetNodeGlobalTransform(native) * geometry;
 
 	for(int i = 0; i < mesh->GetControlPointsCount(); i++)
 	{
