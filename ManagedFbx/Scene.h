@@ -60,6 +60,10 @@ namespace ManagedFbx
 
 		property_r(string^, UnitType);
 
+
+		SceneNode^ CreateNode(string^ name);
+		Mesh^ CreateMesh(string^ name);
+
 	private:
 		FbxScene *m_nativeScene;
 		SceneNode ^m_rootNode;

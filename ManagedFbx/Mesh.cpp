@@ -59,6 +59,20 @@ array<Vector3> ^Mesh::Vertices::get()
 	return list;
 }
 
+void Mesh::Vertices::set(array<Vector3>^ controlPoints)
+{
+	int count = controlPoints->Length;
+	m_nativeMesh->InitControlPoints(count);
+	for (size_t i = 0; i < count; i++)
+	{
+		double x = controlPoints[i].X;
+		double y = controlPoints[i].Y;
+		double z = controlPoints[i].Z;
+		FbxVector4 lNativeVector(x, y, z);
+		m_nativeMesh->mControlPoints[i] = lNativeVector;
+	}
+}
+
 bool Mesh::Valid::get()
 {
 	return m_nativeMesh != nullptr;
@@ -74,6 +88,17 @@ array<Vector3> ^Mesh::Normals::get()
 		list[i] = Vector3(normals->GetDirectArray().GetAt(i));
 
 	return list;
+}
+
+void Mesh::Normals::set(array<Vector3>^ normals)
+{
+	FbxGeometryElementNormal* lGeometryElementNormal = m_nativeMesh->CreateElementNormal();
+	lGeometryElementNormal->SetReferenceMode(FbxGeometryElement::eDirect);
+	for each (Vector3 var in normals)
+	{
+		FbxVector4 normal(var.X, var.Y, var.Z);
+		lGeometryElementNormal->GetDirectArray().Add(normal);
+	}
 }
 
 array<Vector2> ^Mesh::TextureCoords::get()
@@ -145,5 +170,23 @@ void ManagedFbx::Mesh::Test(){
 	while (controlpoints!=nullptr)
 	{
 
+	}
+}
+
+FbxMesh* Mesh::NativePtr::get(){
+	return m_nativeMesh;
+}
+
+void Mesh::AddPolygons(List<int>^ polygonIndex)
+{
+	for (size_t i = 0; i < polygonIndex->Count; i += 3)
+	{
+		m_nativeMesh->BeginPolygon();
+		{
+			m_nativeMesh->AddPolygon(polygonIndex[i]);
+			m_nativeMesh->AddPolygon(polygonIndex[i + 1]);
+			m_nativeMesh->AddPolygon(polygonIndex[i + 2]);
+		}
+		m_nativeMesh->EndPolygon();
 	}
 }

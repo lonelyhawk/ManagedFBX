@@ -184,3 +184,13 @@ void SceneNode::FindChildNodes(SceneNode^ node, List<SceneNode^>^ nodeList)
 		FindChildNodes(child, nodeList);
 	}
 }
+
+void SceneNode::AddAttribute(NodeAttribute^ attribute)
+{
+	m_nativeNode->AddNodeAttribute(attribute->m_nativeAttribute);
+}
+
+void SceneNode::AddMesh(ManagedFbx::Mesh^ mesh)
+{
+	m_nativeNode->AddNodeAttribute(mesh->NativePtr);
+}

@@ -68,9 +68,17 @@ namespace ManagedFbx
 		void AddChild(SceneNode ^node);
 
 		/// <sumary>
-		/// 
+		/// Transform the vector by this sceneNode's Wrold Transform
+		/// </sumary>
 		Vector3 MultT(Vector3 vector);
+
+		/// <sumary>
+		/// Transform the vectors by this sceneNode's Wrold Transform
+		/// </sumary>
 		List<Vector3>^ MultT(List<Vector3>^ vectorList);
+
+		void AddAttribute(NodeAttribute^ attribute);
+		void AddMesh(ManagedFbx::Mesh^ mesh);
 
 		List<SceneNode^>^ FindAllHierarchyChildren();
 

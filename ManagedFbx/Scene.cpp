@@ -26,6 +26,7 @@ Scene ^Scene::Import(string ^filename)
 	scene->m_rootNode = gcnew SceneNode(scene->m_nativeScene->GetRootNode());
 
 	return scene;
+
 }
 
 
@@ -131,4 +132,23 @@ void Scene::BakeTransform(SceneNode ^node)
 		auto pos = mesh->GetControlPointAt(i);
 		mesh->SetControlPointAt(total.MultT(pos), i);
 	}
+}
+
+SceneNode^ Scene::CreateNode(string^ name)
+{
+	marshal_context context;
+	const char* lNativeName = context.marshal_as<const char*>(name);
+
+	FbxNode* lNativeNode = FbxNode::Create(m_nativeScene, lNativeName);
+	SceneNode^ result = gcnew SceneNode(lNativeNode);
+	return result;
+}
+
+Mesh^ Scene::CreateMesh(string^ name){
+	marshal_context context;
+	const char* lNativeName = context.marshal_as<const char*>(name);
+
+	FbxMesh* lNativeMesh = FbxMesh::Create(m_nativeScene, lNativeName);
+	Mesh^ result = gcnew Mesh(lNativeMesh);
+	return result;
 }
