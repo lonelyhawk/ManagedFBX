@@ -60,6 +60,12 @@ namespace ManagedFbx
 
 		property_r(string^, UnitType);
 
+		property_rw(double, UnitScale);
+
+		property_rw(double, UnitMultipler);
+
+		void SetSceneScale(double scale);
+
 
 		SceneNode^ CreateNode(string^ name);
 		Mesh^ CreateMesh(string^ name);

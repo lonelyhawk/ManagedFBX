@@ -72,6 +72,27 @@ string ^Scene::UnitType::get()
 	return gcnew string(m_nativeScene->GetGlobalSettings().GetSystemUnit().GetScaleFactorAsString_Plurial());
 }
 
+double Scene::UnitScale::get()
+{
+	return m_nativeScene->GetGlobalSettings().GetSystemUnit().GetScaleFactor();
+}
+
+void Scene::UnitScale::set(double scaleFactor)
+{
+	this->SetSceneScale(scaleFactor);
+}
+
+double Scene::UnitMultipler::get()
+{
+	return m_nativeScene->GetGlobalSettings().GetSystemUnit().GetMultiplier();
+}
+
+void Scene::UnitMultipler::set(double multiplier)
+{
+	double scaleFactor = this->UnitScale;
+	m_nativeScene->GetGlobalSettings().SetSystemUnit(FbxSystemUnit(scaleFactor, multiplier));
+}
+
 void Scene::ConvertUnits(Unit units)
 {
 	switch(units)
@@ -151,4 +172,9 @@ Mesh^ Scene::CreateMesh(string^ name){
 	FbxMesh* lNativeMesh = FbxMesh::Create(m_nativeScene, lNativeName);
 	Mesh^ result = gcnew Mesh(lNativeMesh);
 	return result;
+}
+
+void Scene::SetSceneScale(double scale)
+{
+	m_nativeScene->GetGlobalSettings().SetSystemUnit(FbxSystemUnit(100));
 }
