@@ -190,3 +190,16 @@ void Mesh::AddPolygons(List<int>^ polygonIndex)
 		m_nativeMesh->EndPolygon();
 	}
 }
+
+void Mesh::AddPolygon(List<int>^ polygonIndex)
+{
+	m_nativeMesh->BeginPolygon();
+	{
+		for (size_t i = 0; i < polygonIndex->Count; i++)
+		{
+			int index = polygonIndex[i];
+			m_nativeMesh->AddPolygon(index);
+		}
+	}
+	m_nativeMesh->EndPolygon();
+}

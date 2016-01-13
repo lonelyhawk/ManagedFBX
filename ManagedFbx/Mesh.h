@@ -28,6 +28,7 @@ namespace ManagedFbx
 		void Test();
 		Vector3 GetVertexNormal(int polygon, int index);
 		void AddPolygons(List<int>^ polygonIndex);
+		void AddPolygon(List<int>^ polygonIndex);
 
 
 	internal:
