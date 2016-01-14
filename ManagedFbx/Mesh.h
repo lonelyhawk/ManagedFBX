@@ -17,7 +17,7 @@ namespace ManagedFbx
 		property_r(array<int>^, MaterialIDs);
 		property_r(bool, Triangulated);
 		property_r(bool, Valid);
-		property_r(int, NormalMappingMode);
+		property_rw(int, NormalMappingMode);
 		property_r(FbxMesh*, NativePtr);
 		property int UVLayer;
 

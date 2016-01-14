@@ -77,6 +77,7 @@ namespace ManagedFbx
 		/// </sumary>
 		List<Vector3>^ MultT(List<Vector3>^ vectorList);
 
+
 		void AddAttribute(NodeAttribute^ attribute);
 		void AddMesh(ManagedFbx::Mesh^ mesh);
 

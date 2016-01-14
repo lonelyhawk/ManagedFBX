@@ -162,7 +162,14 @@ array<Colour> ^Mesh::VertexColours::get()
 }
 
 int Mesh::NormalMappingMode::get(){
-	return 0;
+	FbxGeometryElementNormal* leNormals = m_nativeMesh->GetElementNormal(0);
+	return leNormals->GetMappingMode();
+}
+
+void Mesh::NormalMappingMode::set(int mode)
+{
+	FbxGeometryElementNormal* leNormal = m_nativeMesh->GetElementNormal(0);
+	leNormal->SetMappingMode((FbxLayerElement::EMappingMode) mode);
 }
 
 void ManagedFbx::Mesh::Test(){
