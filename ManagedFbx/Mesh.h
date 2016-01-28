@@ -12,12 +12,13 @@ namespace ManagedFbx
 		property_r(array<Polygon>^, Polygons);
 		property_rw(array<Vector3>^, Vertices);
 		property_rw(array<Vector3>^, Normals);
-		property_r(array<Vector2>^, TextureCoords);
+		property_rw(array<Vector2>^, TextureCoords);
 		property_r(array<Colour>^, VertexColours);
 		property_r(array<int>^, MaterialIDs);
 		property_r(bool, Triangulated);
 		property_r(bool, Valid);
 		property_rw(int, NormalMappingMode);
+		property_rw(int, UVMappingMode);
 		property_r(FbxMesh*, NativePtr);
 		property int UVLayer;
 

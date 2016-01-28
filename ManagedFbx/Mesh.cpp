@@ -118,6 +118,36 @@ array<Vector2> ^Mesh::TextureCoords::get()
 	return list;
 }
 
+void Mesh::TextureCoords::set(array<Vector2>^ uvArray)
+{
+	int layer_count = m_nativeMesh->GetLayerCount();
+	for (size_t i = 0; i < layer_count; i++)
+	{
+		auto t_layer = m_nativeMesh->GetLayer(i);
+		if (t_layer)
+		{
+			auto element = t_layer->GetUVs();
+			if (element)
+			{
+				element->Clear();
+				FbxVector2 vector(uvArray[i].X, uvArray[i].Y);
+				element->mDirectArray->Add(vector);
+				return;
+			}
+		}
+	}
+
+	FbxLayerElementUV *lUVElement = FbxLayerElementUV::Create(m_nativeMesh, "");
+	for (size_t i = 0; i < uvArray->Length; i++)
+	{
+		FbxVector2 vector(uvArray[i].X, uvArray[i].Y);
+		lUVElement->mDirectArray->Add(vector);
+	}
+
+	m_nativeMesh->GetLayer(0)->SetUVs(lUVElement);
+	
+}
+
 int Mesh::GetMaterialId(int polygon)
 {
 	FbxLayerElementArrayTemplate<int> *materials = nullptr;
@@ -170,6 +200,26 @@ void Mesh::NormalMappingMode::set(int mode)
 {
 	FbxGeometryElementNormal* leNormal = m_nativeMesh->GetElementNormal(0);
 	leNormal->SetMappingMode((FbxLayerElement::EMappingMode) mode);
+}
+
+int Mesh::UVMappingMode::get()
+{
+	auto layer = m_nativeMesh->GetLayer(UVLayer);
+	if (!layer)
+		return -1;
+	auto element = layer->GetUVs();
+
+	return (int)element->GetMappingMode();
+}
+
+void Mesh::UVMappingMode::set(int mode)
+{
+	auto layer = m_nativeMesh->GetLayer(UVLayer);
+	if (!layer)
+		return;
+	auto element = layer->GetUVs();
+
+	element->SetMappingMode((FbxLayerElement::EMappingMode) mode);
 }
 
 void ManagedFbx::Mesh::Test(){
