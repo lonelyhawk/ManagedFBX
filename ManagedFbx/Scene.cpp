@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Scene.h"
 #include "Manager.h"
+#include <msclr/marshal_cppstd.h>
 
 using namespace ManagedFbx;
 
@@ -170,6 +171,10 @@ Mesh^ Scene::CreateMesh(string^ name){
 	const char* lNativeName = context.marshal_as<const char*>(name);
 
 	FbxMesh* lNativeMesh = FbxMesh::Create(m_nativeScene, lNativeName);
+	FbxGeometryElementMaterial* lMaterialElement = lNativeMesh->CreateElementMaterial();
+	lMaterialElement->SetMappingMode(FbxGeometryElement::eByPolygon);
+	lMaterialElement->SetReferenceMode(FbxGeometryElement::eIndexToDirect);
+
 	Mesh^ result = gcnew Mesh(lNativeMesh);
 	return result;
 }
@@ -177,4 +182,29 @@ Mesh^ Scene::CreateMesh(string^ name){
 void Scene::SetSceneScale(double scale)
 {
 	m_nativeScene->GetGlobalSettings().SetSystemUnit(FbxSystemUnit(100));
+}
+
+PhongMaterial^ Scene::CreatePhongMaterial(String^ name)
+{
+	std::string converted_name = msclr::interop::marshal_as< std::string >(name);
+	FbxSurfacePhong* phong = FbxSurfacePhong::Create(m_nativeScene, converted_name.c_str());
+	phong->ShadingModel.Set(FbxString("Phong"));
+	PhongMaterial^ material = gcnew PhongMaterial(phong);
+	return material;
+}
+
+ManagedTexture^ Scene::CreateFileTexture(string^ name)
+{
+	std::string converted_name = msclr::interop::marshal_as< std::string >(name);
+	FbxFileTexture* ltexture = FbxFileTexture::Create(m_nativeScene, converted_name.c_str());
+	ltexture->SetTextureUse(FbxTexture::eStandard);
+	ltexture->SetMappingType(FbxTexture::eUV);
+	ltexture->SetMaterialUse(FbxFileTexture::eModelMaterial);
+	ltexture->SetSwapUV(false);
+	ltexture->SetTranslation(0.0, 0.0);
+	ltexture->SetScale(1.0, 1.0);
+	ltexture->SetRotation(0.0, 0.0);
+
+	ManagedTexture^ lManagedTexture = gcnew ManagedTexture(ltexture);
+	return lManagedTexture;
 }

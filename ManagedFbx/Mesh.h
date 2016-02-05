@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Polygon.h"
+#include "Material.h"
+#include "LambertMaterial.h"
 
 using namespace System::Collections::Generic;
 
@@ -28,8 +30,10 @@ namespace ManagedFbx
 		int GetMaterialId(int polygon);
 		void Test();
 		Vector3 GetVertexNormal(int polygon, int index);
-		void AddPolygons(List<int>^ polygonIndex);
-		void AddPolygon(List<int>^ polygonIndex);
+		void AddPolygons(List<int>^);
+		void AddPolygon(List<int>^, int);
+		void AddPolygons(List<int>^, int);
+
 
 
 	internal:

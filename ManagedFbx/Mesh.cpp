@@ -248,9 +248,9 @@ void Mesh::AddPolygons(List<int>^ polygonIndex)
 	}
 }
 
-void Mesh::AddPolygon(List<int>^ polygonIndex)
+void Mesh::AddPolygon(List<int>^ polygonIndex, int materialId)
 {
-	m_nativeMesh->BeginPolygon();
+	m_nativeMesh->BeginPolygon(materialId);
 	{
 		for (size_t i = 0; i < polygonIndex->Count; i++)
 		{
@@ -259,4 +259,18 @@ void Mesh::AddPolygon(List<int>^ polygonIndex)
 		}
 	}
 	m_nativeMesh->EndPolygon();
+}
+
+void Mesh::AddPolygons(List<int>^ pPolygonIndex, int pMaterialId)
+{
+	for (size_t i = 0; i < pPolygonIndex->Count; i += 3)
+	{
+		m_nativeMesh->BeginPolygon(pMaterialId);
+		{
+			m_nativeMesh->AddPolygon(pPolygonIndex[i]);
+			m_nativeMesh->AddPolygon(pPolygonIndex[i + 1]);
+			m_nativeMesh->AddPolygon(pPolygonIndex[i + 2]);
+		}
+		m_nativeMesh->EndPolygon();
+	}
 }

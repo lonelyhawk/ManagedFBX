@@ -3,6 +3,7 @@
 #include "NodeAttribute.h"
 #include "Mesh.h"
 #include "Light.h"
+#include "Material.h"
 
 using namespace System::Collections::Generic;
 
@@ -82,6 +83,8 @@ namespace ManagedFbx
 		void AddMesh(ManagedFbx::Mesh^ mesh);
 
 		List<SceneNode^>^ FindAllHierarchyChildren();
+		List<Material^>^ GetAllMaterials();
+		void AddMaterial(AbstractMaterial^ );
 
 	internal:
 		SceneNode(FbxNode *node);

@@ -194,3 +194,23 @@ void SceneNode::AddMesh(ManagedFbx::Mesh^ mesh)
 {
 	m_nativeNode->AddNodeAttribute(mesh->NativePtr);
 }
+
+List<Material^>^ SceneNode::GetAllMaterials()
+{
+	int count = m_nativeNode->GetMaterialCount();
+	List<Material^>^ lMaterialList = gcnew List<Material^>(count);
+	for (size_t i = 0; i < count; i++)
+	{
+		FbxSurfaceMaterial* lNativeMaterial = m_nativeNode->GetMaterial(i);
+		Material^ lMaterial = gcnew Material(lNativeMaterial);
+		lMaterialList->Add(lMaterial);
+	}
+
+	return lMaterialList;
+}
+
+
+void SceneNode::AddMaterial(AbstractMaterial^ pMaterial)
+{
+	m_nativeNode->AddMaterial(pMaterial->m_material);
+}

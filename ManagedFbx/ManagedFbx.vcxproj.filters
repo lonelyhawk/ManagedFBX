@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <Filter>Helpers</Filter>
+      <Filter>Maths\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -20,15 +20,30 @@
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Properties</Filter>
     </ClCompile>
+    <ClCompile Include="LambertMaterial.cpp">
+      <Filter>Attributes\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="PhongMaterial.cpp">
+      <Filter>Attributes\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Attributes\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractMaterial.cpp">
+      <Filter>Attributes\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="ManagedTexture.cpp">
+      <Filter>Attributes\Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="stdafx.h">
-      <Filter>Helpers</Filter>
+      <Filter>Maths\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="Properties.h">
-      <Filter>Helpers</Filter>
+      <Filter>Maths\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Maths</Filter>
@@ -38,7 +53,7 @@
     </ClInclude>
     <ClInclude Include="Manager.h" />
     <ClInclude Include="NativeString.h">
-      <Filter>Helpers</Filter>
+      <Filter>Maths\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Mesh.h">
@@ -51,11 +66,23 @@
       <Filter>Attributes</Filter>
     </ClInclude>
     <ClInclude Include=".\ConversionTypes.h" />
+    <ClInclude Include="LambertMaterial.h">
+      <Filter>Attributes\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="PhongMaterial.h">
+      <Filter>Attributes\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Attributes\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractMaterial.h">
+      <Filter>Attributes\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="ManagedTexture.h">
+      <Filter>Attributes\Textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Helpers">
-      <UniqueIdentifier>{294b9ba4-ee57-4d5f-b87f-715a6ea77c8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Maths">
       <UniqueIdentifier>{9015aafe-42e1-4b07-bda4-9dd023a1aeda}</UniqueIdentifier>
     </Filter>
@@ -67,6 +94,15 @@
     </Filter>
     <Filter Include="Properties">
       <UniqueIdentifier>{be407496-9238-483e-9e28-20a6d050c186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Attributes\Materials">
+      <UniqueIdentifier>{f276a030-64e1-41a8-8049-7d20777046f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Maths\Helpers">
+      <UniqueIdentifier>{294b9ba4-ee57-4d5f-b87f-715a6ea77c8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Attributes\Textures">
+      <UniqueIdentifier>{888debb4-abe1-484f-97f6-3d64b2d0034f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

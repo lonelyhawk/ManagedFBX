@@ -2,6 +2,7 @@
 
 #include "SceneNode.h"
 #include "ConversionTypes.h"
+#include "ManagedTexture.h"
 
 using namespace System::Collections::Generic;
 
@@ -69,10 +70,15 @@ namespace ManagedFbx
 
 		SceneNode^ CreateNode(string^ name);
 		Mesh^ CreateMesh(string^ name);
+		PhongMaterial ^CreatePhongMaterial(String^ name);
+		ManagedTexture ^CreateFileTexture(string^ name);
+
 
 	private:
 		FbxScene *m_nativeScene;
 		SceneNode ^m_rootNode;
 		FbxManager *m_manager;
+
+		static int  nameCounter = 0;
 	};
 }
