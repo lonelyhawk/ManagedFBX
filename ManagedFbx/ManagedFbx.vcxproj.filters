@@ -29,9 +29,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>Attributes\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractMaterial.cpp">
-      <Filter>Attributes\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="ManagedTexture.cpp">
       <Filter>Attributes\Textures</Filter>
     </ClCompile>
@@ -66,16 +63,7 @@
       <Filter>Attributes</Filter>
     </ClInclude>
     <ClInclude Include=".\ConversionTypes.h" />
-    <ClInclude Include="LambertMaterial.h">
-      <Filter>Attributes\Materials</Filter>
-    </ClInclude>
-    <ClInclude Include="PhongMaterial.h">
-      <Filter>Attributes\Materials</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Attributes\Materials</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractMaterial.h">
       <Filter>Attributes\Materials</Filter>
     </ClInclude>
     <ClInclude Include="ManagedTexture.h">

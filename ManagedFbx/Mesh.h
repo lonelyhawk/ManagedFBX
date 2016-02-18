@@ -2,7 +2,6 @@
 
 #include "Polygon.h"
 #include "Material.h"
-#include "LambertMaterial.h"
 
 using namespace System::Collections::Generic;
 

@@ -3,7 +3,6 @@
 #include "SceneNode.h"
 #include "ConversionTypes.h"
 #include "ManagedTexture.h"
-#include "PhongMaterial.h"
 
 using namespace System::Collections::Generic;
 

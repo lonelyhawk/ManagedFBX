@@ -164,6 +164,8 @@ public partial class FbxForm : Form
 		if(dialog.ShowDialog() == DialogResult.OK)
 		{
 			var scenePath = dialog.FileName;
+
+            
 			m_scene = Scene.Import(scenePath);
 			uxFbxTree.Nodes.Clear();
 			Add(m_scene.RootNode, null);

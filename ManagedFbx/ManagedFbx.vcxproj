@@ -186,8 +186,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include=".\ConversionTypes.h" />
-    <ClInclude Include="AbstractMaterial.h" />
-    <ClInclude Include="LambertMaterial.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="ManagedTexture.h" />
     <ClInclude Include="Manager.h" />
@@ -195,7 +193,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="NativeString.h" />
     <ClInclude Include="FbxException.h" />
-    <ClInclude Include="PhongMaterial.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Properties.h" />
     <ClInclude Include="Scene.h" />
@@ -205,7 +202,6 @@
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractMaterial.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="LambertMaterial.cpp" />
     <ClCompile Include="Light.cpp" />
