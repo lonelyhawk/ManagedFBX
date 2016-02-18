@@ -1,15 +1,31 @@
 #include "stdafx.h"
-#include "PhongMaterial.h"
+#include "Material.h"
 
 namespace ManagedFbx{
-	PhongMaterial::PhongMaterial(FbxSurfacePhong* material) : AbstractMaterial(material)
+	PhongMaterial::PhongMaterial(FbxSurfacePhong* material) : LambertMaterial(material)
 	{
 		m_material = material;
 	}
 
+	PhongMaterial::PhongMaterial(Material^ material) : LambertMaterial(material)
+	{
+		m_material = material->m_material;
+	}
+
+
 	string^ PhongMaterial::Diffuse::get()
 	{
 		return gcnew string(m_material->sDiffuse);
+	}
+
+	PhongMaterial::operator PhongMaterial ^ (Material^ material)
+	{
+		return gcnew PhongMaterial((FbxSurfacePhong*)material->m_material);
+	}
+
+	FbxSurfacePhong* PhongMaterial::NativePhongMaterial::get()
+	{
+		return(FbxSurfacePhong*)m_material;
 	}
 
 	//Vector3^ PhongMaterial::AmbientColor::get()

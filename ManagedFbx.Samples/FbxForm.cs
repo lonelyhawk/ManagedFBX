@@ -57,6 +57,18 @@ public partial class FbxForm : Form
 				case NodeAttributeType.Mesh:
 					{
 						var mesh = node.Mesh;
+                        var materialList = node.GetAllMaterials();
+                        foreach (Material material in materialList)
+                        {
+                            if(material.MaterialType == ManagedMaterialType.PHONG)
+                            {
+                                var phong = (PhongMaterial)material;
+                            }
+                            else
+                            {
+                                var lambert = (LambertMaterial)material;
+                            }
+                        }
 
 						if(!mesh.Triangulated)
 						{
@@ -75,6 +87,8 @@ public partial class FbxForm : Form
 								str += "\t" + index;
 
 							builder.Append("{0}:{1}\t(UVs: {2}, {3}, {4}, Mat ID: {5})", i, str, mesh.GetUVIndex(i, 0), mesh.GetUVIndex(i, 1), mesh.GetUVIndex(i, 2), mesh.GetMaterialId(i));
+                            var materialId = mesh.GetMaterialId(i);
+                            Material material = materialList[materialId];
 						}
 
 						NewLine();

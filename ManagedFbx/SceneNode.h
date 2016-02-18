@@ -84,7 +84,7 @@ namespace ManagedFbx
 
 		List<SceneNode^>^ FindAllHierarchyChildren();
 		List<Material^>^ GetAllMaterials();
-		void AddMaterial(AbstractMaterial^ );
+		void AddMaterial(Material^ );
 
 	internal:
 		SceneNode(FbxNode *node);

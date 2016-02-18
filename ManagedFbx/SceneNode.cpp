@@ -202,7 +202,15 @@ List<Material^>^ SceneNode::GetAllMaterials()
 	for (size_t i = 0; i < count; i++)
 	{
 		FbxSurfaceMaterial* lNativeMaterial = m_nativeNode->GetMaterial(i);
-		Material^ lMaterial = gcnew Material(lNativeMaterial);
+		Material^ lMaterial;
+		if (lNativeMaterial->GetClassId().Is(FbxSurfacePhong::ClassId))
+		{
+			lMaterial = gcnew PhongMaterial((FbxSurfacePhong*)lNativeMaterial);
+		}
+		else
+		{
+			lMaterial = gcnew LambertMaterial((FbxSurfaceLambert*)lNativeMaterial);
+		}
 		lMaterialList->Add(lMaterial);
 	}
 
@@ -210,7 +218,7 @@ List<Material^>^ SceneNode::GetAllMaterials()
 }
 
 
-void SceneNode::AddMaterial(AbstractMaterial^ pMaterial)
+void SceneNode::AddMaterial(Material^ pMaterial)
 {
 	m_nativeNode->AddMaterial(pMaterial->m_material);
 }

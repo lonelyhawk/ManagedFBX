@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Material.h"
-
+#include <msclr/marshal_cppstd.h>
 
 namespace ManagedFbx{
 	Material::Material(FbxSurfaceMaterial *material)
@@ -20,16 +20,16 @@ namespace ManagedFbx{
 		}
 	}
 
-	Material::operator ManagedFbx::LambertMaterial^(Material ^ material)
+	string^ Material::Name::get()
 	{
-		return gcnew LambertMaterial((FbxSurfaceLambert*)material->m_material);
+		return gcnew string(m_material->GetName());
 	}
 
-	Material::operator ManagedFbx::PhongMaterial^(Material^ material)
+	void Material::Name::set(string^ name)
 	{
-		return gcnew PhongMaterial((FbxSurfacePhong*)material->m_material);
+		std::string converted_name = msclr::interop::marshal_as< std::string >(name);
+		m_material->SetName(converted_name.c_str());
 	}
-
 }
 
 
