@@ -35,13 +35,14 @@ IEnumerable<NodeAttribute^>^ SceneNode::Attributes::get()
 
 string ^SceneNode::Name::get()
 {
-	return gcnew string(m_nativeNode->GetName());
+	return StringHelper::ToManaged(m_nativeNode->GetName());
 }
 
 void SceneNode::Name::set(string ^value)
 {
 	m_nativeNode->SetName(StringHelper::ToNative(value));
 }
+
 
 void SceneNode::AddChild(SceneNode ^node)
 {

@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "Light.h"
 #include "Material.h"
+#include "NativeString.h"
 
 using namespace System::Collections::Generic;
 
@@ -19,7 +20,7 @@ namespace ManagedFbx
 		/// Gets and sets the name of this node.
 		/// </summary>
 		property_rw(string^, Name);
-
+		
 		/// <summary>
 		/// Gets the direct children of this node.
 		/// </summary>

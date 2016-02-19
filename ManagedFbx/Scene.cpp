@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Scene.h"
 #include "Manager.h"
-#include <msclr/marshal_cppstd.h>
 
 using namespace ManagedFbx;
 
@@ -49,7 +48,7 @@ void Scene::Name::set(string ^value)
 
 string ^Scene::Name::get()
 {
-	return gcnew string(m_nativeScene->GetName());
+	return StringHelper::ToManaged(m_nativeScene->GetName());
 }
 
 SceneNode ^Scene::RootNode::get()
@@ -65,12 +64,12 @@ void Scene::Application::set(string ^value)
 string ^Scene::Application::get()
 {
 	auto name = m_nativeScene->GetSceneInfo()->LastSaved_ApplicationName.Get().Buffer();
-	return gcnew string(name);
+	return StringHelper::ToManaged(name);
 }
 
 string ^Scene::UnitType::get()
 {
-	return gcnew string(m_nativeScene->GetGlobalSettings().GetSystemUnit().GetScaleFactorAsString_Plurial());
+	return StringHelper::ToManaged(m_nativeScene->GetGlobalSettings().GetSystemUnit().GetScaleFactorAsString_Plurial());
 }
 
 double Scene::UnitScale::get()
@@ -158,8 +157,7 @@ void Scene::BakeTransform(SceneNode ^node)
 
 SceneNode^ Scene::CreateNode(string^ name)
 {
-	marshal_context context;
-	const char* lNativeName = context.marshal_as<const char*>(name);
+	const char* lNativeName = StringHelper::ToNative(name);
 
 	FbxNode* lNativeNode = FbxNode::Create(m_nativeScene, lNativeName);
 	SceneNode^ result = gcnew SceneNode(lNativeNode);
@@ -167,8 +165,7 @@ SceneNode^ Scene::CreateNode(string^ name)
 }
 
 Mesh^ Scene::CreateMesh(string^ name){
-	marshal_context context;
-	const char* lNativeName = context.marshal_as<const char*>(name);
+	const char* lNativeName = StringHelper::ToNative(name);
 
 	FbxMesh* lNativeMesh = FbxMesh::Create(m_nativeScene, lNativeName);
 	FbxGeometryElementMaterial* lMaterialElement = lNativeMesh->CreateElementMaterial();
@@ -186,8 +183,8 @@ void Scene::SetSceneScale(double scale)
 
 PhongMaterial^ Scene::CreatePhongMaterial(String^ name)
 {
-	std::string converted_name = msclr::interop::marshal_as< std::string >(name);
-	FbxSurfacePhong* phong = FbxSurfacePhong::Create(m_nativeScene, converted_name.c_str());
+	const char* lNativeName = StringHelper::ToNative(name);
+	FbxSurfacePhong* phong = FbxSurfacePhong::Create(m_nativeScene, lNativeName);
 	phong->ShadingModel.Set(FbxString("Phong"));
 	PhongMaterial^ material = gcnew PhongMaterial(phong);
 	return material;
@@ -195,8 +192,8 @@ PhongMaterial^ Scene::CreatePhongMaterial(String^ name)
 
 ManagedTexture^ Scene::CreateFileTexture(string^ name)
 {
-	std::string converted_name = msclr::interop::marshal_as< std::string >(name);
-	FbxFileTexture* ltexture = FbxFileTexture::Create(m_nativeScene, converted_name.c_str());
+	const char* lNativeName = StringHelper::ToNative(name);
+	FbxFileTexture* ltexture = FbxFileTexture::Create(m_nativeScene, lNativeName);
 	ltexture->SetTextureUse(FbxTexture::eStandard);
 	ltexture->SetMappingType(FbxTexture::eUV);
 	ltexture->SetMaterialUse(FbxFileTexture::eModelMaterial);

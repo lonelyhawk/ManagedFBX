@@ -163,13 +163,18 @@ public partial class FbxForm : Form
 
 		if(dialog.ShowDialog() == DialogResult.OK)
 		{
-			var scenePath = dialog.FileName;
+            var path = dialog.FileName;
+            //byte[] bytes = Encoding.UTF8.GetBytes(path);
+            //char[] chars = new char[bytes.Length];
+            //for (int i = 0; i < bytes.Length; i++)
+            //    chars[i] = (char)bytes[i];
 
-            
-			m_scene = Scene.Import(scenePath);
+
+            m_scene = Scene.Import(path);
+            //m_scene = Scene.ImportWithUTF8Bytes(bytes);
 			uxFbxTree.Nodes.Clear();
 			Add(m_scene.RootNode, null);
-			SetTitle(scenePath);
+            SetTitle(path);
 		}
 	}
 
