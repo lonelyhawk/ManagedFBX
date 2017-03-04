@@ -13,7 +13,7 @@ public:
 		
 		const int lenght = bytes->Length + 1;
 		char* chars = new char[lenght];
-		for (size_t i = 0; i < bytes->Length; i++)
+		for (int i = 0; i < bytes->Length; i++)
 		{
 			chars[i] = bytes[i];
 		}
@@ -37,7 +37,7 @@ public:
 
 	static array<byte>^ ToUTFBytes(const char* string)
 	{
-		int length = std::strlen(string);
+		int length = (int)std::strlen(string);
 		array<byte>^ chars = gcnew array <byte>(length);
 		for (int i = 0; i < length; i++)
 			chars[i] = string[i];
@@ -46,7 +46,7 @@ public:
 
 	static System::String^ ToManaged(const char* string)
 	{
-		const int length = strlen(string);
+		const int length = (int)strlen(string);
 		array<byte>^ bytes = gcnew array < byte >(length);
 		for (int i = 0; i < length; i++)
 		{

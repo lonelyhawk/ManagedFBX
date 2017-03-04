@@ -200,7 +200,7 @@ List<Material^>^ SceneNode::GetAllMaterials()
 {
 	int count = m_nativeNode->GetMaterialCount();
 	List<Material^>^ lMaterialList = gcnew List<Material^>(count);
-	for (size_t i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		FbxSurfaceMaterial* lNativeMaterial = m_nativeNode->GetMaterial(i);
 		Material^ lMaterial;

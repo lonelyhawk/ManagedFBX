@@ -159,19 +159,12 @@ public partial class FbxForm : Form
 	private void LoadFile(object sender, EventArgs e)
 	{
 		var dialog = new OpenFileDialog();
-		dialog.Filter = "FBX files (*.fbx)|*.fbx";
+		dialog.Filter = "FBX file (*.fbx)|*.fbx|OBJ file (*.obj)|*.obj|Collada file (*.dae)|*.dae";
 
 		if(dialog.ShowDialog() == DialogResult.OK)
 		{
             var path = dialog.FileName;
-            //byte[] bytes = Encoding.UTF8.GetBytes(path);
-            //char[] chars = new char[bytes.Length];
-            //for (int i = 0; i < bytes.Length; i++)
-            //    chars[i] = (char)bytes[i];
-
-
             m_scene = Scene.Import(path);
-            //m_scene = Scene.ImportWithUTF8Bytes(bytes);
 			uxFbxTree.Nodes.Clear();
 			Add(m_scene.RootNode, null);
             SetTitle(path);
@@ -181,7 +174,7 @@ public partial class FbxForm : Form
 	private void SaveFile(object sender, EventArgs e)
 	{
 		var dialog = new SaveFileDialog();
-		dialog.Filter = "FBX file (*.fbx)|*.fbx";
+		dialog.Filter = "FBX file (*.fbx)|*.fbx|OBJ file (*.obj)|*.obj|Collada file (*.dae)|*.dae";
 
 		if(dialog.ShowDialog() == DialogResult.OK)
 		{

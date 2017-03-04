@@ -63,7 +63,7 @@ void Mesh::Vertices::set(array<Vector3>^ controlPoints)
 {
 	int count = controlPoints->Length;
 	m_nativeMesh->InitControlPoints(count);
-	for (size_t i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		double x = controlPoints[i].X;
 		double y = controlPoints[i].Y;
@@ -121,7 +121,7 @@ array<Vector2> ^Mesh::TextureCoords::get()
 void Mesh::TextureCoords::set(array<Vector2>^ uvArray)
 {
 	int layer_count = m_nativeMesh->GetLayerCount();
-	for (size_t i = 0; i < layer_count; i++)
+	for (int i = 0; i < layer_count; i++)
 	{
 		auto t_layer = m_nativeMesh->GetLayer(i);
 		if (t_layer)
@@ -138,7 +138,7 @@ void Mesh::TextureCoords::set(array<Vector2>^ uvArray)
 	}
 
 	FbxLayerElementUV *lUVElement = FbxLayerElementUV::Create(m_nativeMesh, "");
-	for (size_t i = 0; i < uvArray->Length; i++)
+	for (int i = 0; i < uvArray->Length; i++)
 	{
 		FbxVector2 vector(uvArray[i].X, uvArray[i].Y);
 		lUVElement->mDirectArray->Add(vector);
@@ -236,7 +236,7 @@ FbxMesh* Mesh::NativePtr::get(){
 
 void Mesh::AddPolygons(List<int>^ polygonIndex)
 {
-	for (size_t i = 0; i < polygonIndex->Count; i += 3)
+	for (int i = 0; i < polygonIndex->Count; i += 3)
 	{
 		m_nativeMesh->BeginPolygon();
 		{
@@ -252,7 +252,7 @@ void Mesh::AddPolygon(List<int>^ polygonIndex, int materialId)
 {
 	m_nativeMesh->BeginPolygon(materialId);
 	{
-		for (size_t i = 0; i < polygonIndex->Count; i++)
+		for (int i = 0; i < polygonIndex->Count; i++)
 		{
 			int index = polygonIndex[i];
 			m_nativeMesh->AddPolygon(index);
@@ -263,7 +263,7 @@ void Mesh::AddPolygon(List<int>^ polygonIndex, int materialId)
 
 void Mesh::AddPolygons(List<int>^ pPolygonIndex, int pMaterialId)
 {
-	for (size_t i = 0; i < pPolygonIndex->Count; i += 3)
+	for (int i = 0; i < pPolygonIndex->Count; i += 3)
 	{
 		m_nativeMesh->BeginPolygon(pMaterialId);
 		{
