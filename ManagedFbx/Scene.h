@@ -23,6 +23,10 @@ namespace ManagedFbx
 		/// Imports a scene from a file.
 		/// </summary>
 		static Scene ^Import(string ^filepath);
+		
+		static Scene ^CreateScene(string ^name);
+		static SceneNode ^CreateNode(Scene ^scene, string ^name);
+		static Mesh ^CreateMesh(Scene ^scene, SceneNode ^scenenode, string ^name);
 
 		/// <summary>
 		/// Saves the scene to a file.
@@ -67,15 +71,12 @@ namespace ManagedFbx
 
 		void SetSceneScale(double scale);
 
-
-		SceneNode^ CreateNode(string^ name);
-		Mesh^ CreateMesh(string^ name);
 		PhongMaterial ^CreatePhongMaterial(String^ name);
 		ManagedTexture ^CreateFileTexture(string^ name);
 
+		FbxScene *m_nativeScene;
 
 	private:
-		FbxScene *m_nativeScene;
 		SceneNode ^m_rootNode;
 		FbxManager *m_manager;
 

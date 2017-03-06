@@ -14,7 +14,7 @@ namespace ManagedFbx
 		property_rw(array<Vector3>^, Vertices);
 		property_rw(array<Vector3>^, Normals);
 		property_rw(array<Vector2>^, TextureCoords);
-		property_r(array<Colour>^, VertexColours);
+		property_rw(array<Colour>^, VertexColours);
 		property_r(array<int>^, MaterialIDs);
 		property_r(bool, Triangulated);
 		property_r(bool, Valid);

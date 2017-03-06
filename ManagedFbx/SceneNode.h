@@ -67,7 +67,7 @@ namespace ManagedFbx
 		/// <summary>
 		/// Adds an existing node as a child of this node.
 		/// </summary>
-		void AddChild(SceneNode ^node);
+		static void AddChild(SceneNode ^scenenode, SceneNode ^node);
 
 		/// <sumary>
 		/// Transform the vector by this sceneNode's Wrold Transform
@@ -80,12 +80,12 @@ namespace ManagedFbx
 		List<Vector3>^ MultT(List<Vector3>^ vectorList);
 
 
-		void AddAttribute(NodeAttribute^ attribute);
-		void AddMesh(ManagedFbx::Mesh^ mesh);
+		static void AddAttribute(SceneNode ^scenenode, NodeAttribute^ attribute);
+		static void AddMesh(SceneNode ^scenenode, ManagedFbx::Mesh^ mesh);
 
 		List<SceneNode^>^ FindAllHierarchyChildren();
 		List<Material^>^ GetAllMaterials();
-		void AddMaterial(Material^ );
+		static void AddMaterial(SceneNode ^scenenode, Material^ );
 
 	internal:
 		SceneNode(FbxNode *node);

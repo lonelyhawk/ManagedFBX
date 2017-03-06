@@ -44,10 +44,10 @@ void SceneNode::Name::set(string ^value)
 }
 
 
-void SceneNode::AddChild(SceneNode ^node)
+void SceneNode::AddChild(SceneNode ^scenenode, SceneNode ^node)
 {
-	m_nativeNode->AddChild(node->m_nativeNode);
-	m_children->Add(node);
+	scenenode->m_nativeNode->AddChild(node->m_nativeNode);
+	scenenode->m_children->Add(node);
 }
 
 void SceneNode::Position::set(Vector3 value)
@@ -186,14 +186,16 @@ void SceneNode::FindChildNodes(SceneNode^ node, List<SceneNode^>^ nodeList)
 	}
 }
 
-void SceneNode::AddAttribute(NodeAttribute^ attribute)
+void SceneNode::AddAttribute(SceneNode ^scenenode, NodeAttribute^ attribute)
 {
-	m_nativeNode->AddNodeAttribute(attribute->m_nativeAttribute);
+	scenenode->m_nativeNode->AddNodeAttribute(attribute->m_nativeAttribute);
+	scenenode->m_attributes->Add(gcnew NodeAttribute(scenenode->m_nativeNode->GetNodeAttribute()));
 }
 
-void SceneNode::AddMesh(ManagedFbx::Mesh^ mesh)
+void SceneNode::AddMesh(SceneNode ^scenenode, ManagedFbx::Mesh^ mesh)
 {
-	m_nativeNode->AddNodeAttribute(mesh->NativePtr);
+	scenenode->m_nativeNode->AddNodeAttribute(mesh->NativePtr);
+	scenenode->m_attributes->Add(gcnew NodeAttribute(scenenode->m_nativeNode->GetNodeAttribute()));
 }
 
 List<Material^>^ SceneNode::GetAllMaterials()
@@ -219,7 +221,7 @@ List<Material^>^ SceneNode::GetAllMaterials()
 }
 
 
-void SceneNode::AddMaterial(Material^ pMaterial)
+void SceneNode::AddMaterial(SceneNode ^scenenode, Material^ pMaterial)
 {
-	m_nativeNode->AddMaterial(pMaterial->m_material);
+	scenenode->m_nativeNode->AddMaterial(pMaterial->m_material);
 }

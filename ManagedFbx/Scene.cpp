@@ -10,6 +10,13 @@ Scene::Scene(string ^name)
 	m_rootNode = gcnew SceneNode(m_nativeScene->GetRootNode());
 }
 
+Scene ^Scene::CreateScene(string ^name)
+{
+	auto scene = gcnew Scene(name);
+	scene->m_rootNode = gcnew SceneNode(scene->m_nativeScene->GetRootNode());
+	return scene;
+}
+
 Scene ^Scene::Import(string ^filename)
 {
 	auto importer = Manager::GetImporter();
@@ -33,6 +40,7 @@ Scene ^Scene::Import(string ^filename)
 void Scene::Save(string ^filename)
 {
 	auto exporter = Manager::GetExporter();
+	exporter->SetFileExportVersion(FBX_2014_00_COMPATIBLE);
 
 	if(!exporter->Initialize(StringHelper::ToNative(filename)))
 		throw gcnew FbxException("Failed to initialise the FBX exporter: {0}", gcnew string(exporter->GetStatus().GetErrorString()));
@@ -155,23 +163,25 @@ void Scene::BakeTransform(SceneNode ^node)
 	}
 }
 
-SceneNode^ Scene::CreateNode(string^ name)
+SceneNode^ Scene::CreateNode(Scene ^scene, string^ name)
 {
 	const char* lNativeName = StringHelper::ToNative(name);
 
-	FbxNode* lNativeNode = FbxNode::Create(m_nativeScene, lNativeName);
+	FbxNode* lNativeNode = FbxNode::Create(scene->m_nativeScene, lNativeName);
 	SceneNode^ result = gcnew SceneNode(lNativeNode);
 	return result;
 }
 
-Mesh^ Scene::CreateMesh(string^ name){
+Mesh^ Scene::CreateMesh(Scene ^scene, SceneNode ^scenenode, string^ name){
 	const char* lNativeName = StringHelper::ToNative(name);
 
-	FbxMesh* lNativeMesh = FbxMesh::Create(m_nativeScene, lNativeName);
+	FbxMesh* lNativeMesh = FbxMesh::Create(scene->m_nativeScene, lNativeName);
 	FbxGeometryElementMaterial* lMaterialElement = lNativeMesh->CreateElementMaterial();
 	lMaterialElement->SetMappingMode(FbxGeometryElement::eByPolygon);
 	lMaterialElement->SetReferenceMode(FbxGeometryElement::eIndexToDirect);
-
+    FbxSurfacePhong* lMaterial = FbxSurfacePhong::Create(scene->m_nativeScene, "material");
+	lMaterial->Diffuse.Set((FbxDouble3)(0.5, 0.5, 0.5));
+	scenenode->m_nativeNode->AddMaterial(lMaterial);
 	Mesh^ result = gcnew Mesh(lNativeMesh);
 	return result;
 }

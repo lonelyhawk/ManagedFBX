@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using ManagedFbx;
 
 public partial class FbxForm : Form
@@ -156,20 +157,20 @@ public partial class FbxForm : Form
 		uxNodeInfo.Text = builder.ToString();
 	}
 
-	private void LoadFile(object sender, EventArgs e)
-	{
-		var dialog = new OpenFileDialog();
-		dialog.Filter = "FBX file (*.fbx)|*.fbx|OBJ file (*.obj)|*.obj|Collada file (*.dae)|*.dae";
+    private void LoadFile(object sender, EventArgs e)
+    {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "FBX file (*.fbx)|*.fbx|OBJ file (*.obj)|*.obj|Collada file (*.dae)|*.dae";
 
-		if(dialog.ShowDialog() == DialogResult.OK)
-		{
-            var path = dialog.FileName;
-            m_scene = Scene.Import(path);
-			uxFbxTree.Nodes.Clear();
-			Add(m_scene.RootNode, null);
-            SetTitle(path);
-		}
-	}
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = dialog.FileName;
+                m_scene = Scene.Import(path);
+                uxFbxTree.Nodes.Clear();
+                Add(m_scene.RootNode, null);
+                SetTitle(path);
+            }
+    }
 
 	private void SaveFile(object sender, EventArgs e)
 	{

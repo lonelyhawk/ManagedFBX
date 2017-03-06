@@ -191,6 +191,17 @@ array<Colour> ^Mesh::VertexColours::get()
 	return list;
 }
 
+void Mesh::VertexColours::set(array<Colour>^ colours)
+{
+	FbxGeometryElementVertexColor* lGeometryElementVertexColor = m_nativeMesh->CreateElementVertexColor();
+	lGeometryElementVertexColor->SetReferenceMode(FbxGeometryElement::eDirect);
+	for each (Colour var in colours)
+	{
+		FbxColor color(var.R, var.G, var.B, var.A);
+		lGeometryElementVertexColor->GetDirectArray().Add(color);
+	}
+}
+
 int Mesh::NormalMappingMode::get(){
 	FbxGeometryElementNormal* leNormals = m_nativeMesh->GetElementNormal(0);
 	return leNormals->GetMappingMode();
