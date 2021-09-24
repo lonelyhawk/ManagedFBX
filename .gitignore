@@ -31,3 +31,5 @@ Build/
 /ManagedFbx.VC.VC.opendb
 /ManagedFbx.VC.db
 /ipch/MANAGEDFBX-25eacd01/MANAGEDFBX-953ceb13.ipch
+/packages/
+.vs
