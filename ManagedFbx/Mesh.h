@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SceneObject.h"
 #include "Polygon.h"
 #include "Material.h"
 
@@ -7,7 +8,7 @@ using namespace System::Collections::Generic;
 
 namespace ManagedFbx
 {
-	public ref class Mesh
+	public ref class Mesh : SceneObject
 	{
 	public:
 		property_r(array<Polygon>^, Polygons);
@@ -22,6 +23,7 @@ namespace ManagedFbx
 		property_rw(int, UVMappingMode);
 		property_r(FbxMesh*, NativePtr);
 		property int UVLayer;
+		property_r(int, UVLayerCount);
 
 		Mesh ^Triangulate();
 

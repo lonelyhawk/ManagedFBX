@@ -2,8 +2,10 @@
 #include "Material.h"
 #include <msclr/marshal_cppstd.h>
 
-namespace ManagedFbx{
-	Material::Material(FbxSurfaceMaterial *material)
+namespace ManagedFbx
+{
+	Material::Material(FbxSurfaceMaterial* material)
+		: SceneObject(material)
 	{
 		m_material = material;
 	}

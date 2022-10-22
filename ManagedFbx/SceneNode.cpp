@@ -4,11 +4,13 @@
 using namespace ManagedFbx;
 
 SceneNode::SceneNode(FbxNode *node)
+	: SceneObject(node)
 {
 	m_nativeNode = node;
 
 	m_children = gcnew List<SceneNode^>();
 	m_attributes = gcnew List<NodeAttribute^>();
+	m_materials = gcnew List<Material^>();
 
 	for(int i = 0; i < m_nativeNode->GetChildCount(); i++)
 	{
@@ -20,6 +22,12 @@ SceneNode::SceneNode(FbxNode *node)
 	{
 		auto attr = m_nativeNode->GetNodeAttributeByIndex(i);
 		m_attributes->Add(gcnew NodeAttribute(attr));
+	}
+
+	for (int i = 0; i < m_nativeNode->GetMaterialCount(); ++i)
+	{
+		auto mat = m_nativeNode->GetMaterial(i);
+		m_materials->Add(gcnew Material(mat));
 	}
 }
 
@@ -33,16 +41,10 @@ IEnumerable<NodeAttribute^>^ SceneNode::Attributes::get()
 	return m_attributes->AsReadOnly();
 }
 
-string ^SceneNode::Name::get()
+IEnumerable<Material^>^ SceneNode::Materials::get()
 {
-	return StringHelper::ToManaged(m_nativeNode->GetName());
+	return m_materials->AsReadOnly();
 }
-
-void SceneNode::Name::set(string ^value)
-{
-	m_nativeNode->SetName(StringHelper::ToNative(value));
-}
-
 
 void SceneNode::AddChild(SceneNode ^scenenode, SceneNode ^node)
 {
@@ -101,6 +103,11 @@ Mesh ^SceneNode::Mesh::get()
 Light ^SceneNode::Light::get()
 {
 	return gcnew ManagedFbx::Light(m_nativeNode->GetLight());
+}
+
+Camera^ SceneNode::Camera::get()
+{
+	return gcnew ManagedFbx::Camera(m_nativeNode->GetCamera());
 }
 
 array<double>^ SceneNode::Transform::get(){

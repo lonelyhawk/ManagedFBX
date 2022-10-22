@@ -32,6 +32,9 @@
     <ClCompile Include="ManagedTexture.cpp">
       <Filter>Attributes\Textures</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="NodeProperty.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h" />
@@ -69,6 +72,9 @@
     <ClInclude Include="ManagedTexture.h">
       <Filter>Attributes\Textures</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="NodeProperty.h" />
+    <ClInclude Include="SceneObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">

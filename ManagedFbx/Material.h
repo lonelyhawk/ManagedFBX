@@ -1,9 +1,11 @@
 #pragma once
+
+#include "SceneObject.h"
 #include "ManagedTexture.h"
 #include <msclr/marshal_cppstd.h>
 
 namespace ManagedFbx{
-	public ref class Material
+	public ref class Material: SceneObject
 	{
 	public:
 		property_r(enum class ManagedMaterialType, MaterialType);

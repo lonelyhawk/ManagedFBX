@@ -1,9 +1,12 @@
 #pragma once
 
+#include "SceneObject.h"
 #include "NodeAttribute.h"
+#include "NodeProperty.h"
+#include "Material.h"
 #include "Mesh.h"
 #include "Light.h"
-#include "Material.h"
+#include "Camera.h"
 #include "NativeString.h"
 
 using namespace System::Collections::Generic;
@@ -13,14 +16,9 @@ namespace ManagedFbx
 	/// <summary>
 	/// Represents a single node in the FBX scene graph.
 	/// </summary>
-	public ref class SceneNode
+	public ref class SceneNode : SceneObject
 	{
 	public:
-		/// <summary>
-		/// Gets and sets the name of this node.
-		/// </summary>
-		property_rw(string^, Name);
-		
 		/// <summary>
 		/// Gets the direct children of this node.
 		/// </summary>
@@ -63,6 +61,14 @@ namespace ManagedFbx
 		property_r(Vector3, GeometricRotation);
 
 		property_r(Vector3, GeometricScale);
+		/// <summary>
+		/// Gets a collection of materials for this node.
+		/// </summary>
+		property_r(IEnumerable<Material^>^, Materials);
+		/// <summary>
+		/// Gets the first camera attribute of this node if it exists, otherwise null.
+		/// </summary>
+		property_r(ManagedFbx::Camera^, Camera);
 
 		/// <summary>
 		/// Adds an existing node as a child of this node.
@@ -94,6 +100,7 @@ namespace ManagedFbx
 	private:
 		List<SceneNode^> ^m_children;
 		List<NodeAttribute^> ^m_attributes;
+		List<Material^>^ m_materials;
 		void SceneNode::FindChildNodes(SceneNode^ node, List<SceneNode^>^ nodeList);
 	};
 }

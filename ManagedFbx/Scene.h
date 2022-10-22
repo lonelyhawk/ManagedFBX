@@ -32,7 +32,10 @@ namespace ManagedFbx
 		/// Saves the scene to a file.
 		/// </summary>
 		void Save(string ^filepath);
-
+		/// <summary>
+		/// Saves the scene to a file.
+		/// </summary>
+		void Save(string^ filepath, int format);
 		/// <summary>
 		/// Converts the scene to a given unit system.
 		/// </summary>
@@ -68,6 +71,11 @@ namespace ManagedFbx
 		property_rw(double, UnitScale);
 
 		property_rw(double, UnitMultipler);
+
+		/// <summary>
+		/// Gets the direct children of this node.
+		/// </summary>
+		property_r(IEnumerable<string^>^, ExportFormats);
 
 		void SetSceneScale(double scale);
 
